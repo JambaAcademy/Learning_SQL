@@ -5,6 +5,10 @@
 
 This companion repository provides all the SQL scripts, sample datasets, and practice exercises referenced throughout *The Science of Learning SQL*, giving you a ready-made environment so you can focus on understanding concepts rather than setting up files from scratch. Each folder corresponds to a chapter in the book, from the foundational principles of cognitive science and database architecture covered in the early chapters to the practical query-building skills introduced through SELECT, WHERE, sorting, and aggregate functions. Having working code alongside the text means you can run every example immediately, experiment with variations, and observe the results in real time — a practice-first approach that aligns directly with the evidence-based learning methods the book advocates. You will also find guided exercises with solutions that reinforce each chapter's material, helping you build genuine retention rather than passive familiarity. Whether you are setting up your first database or working through GROUP BY aggregations for business analysis, this repository is designed to be your hands-on partner at every step of the journey.
 
+<div align="center">
+<img src="https://github.com/JambaAcademy/Learning_SQL/blob/main/book-mockup.jpg" alt="Book Cover" width="800"/>
+</div>
+
 ---
 
 ## Table of Contents
