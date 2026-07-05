@@ -1,0 +1,64 @@
+employee_id,first_name,last_name,department_id,job_title,hire_date,salary,manager_id,email,employment_status
+101,Sarah,Okonkwo,10,Data Analyst,2019-03-15,72000,201,s.okonkwo@acmecorp.com,Active
+102,James,Whitfield,10,Senior Data Analyst,2017-08-22,95000,201,j.whitfield@acmecorp.com,Active
+103,Priya,Nair,20,HR Manager,2015-06-01,88000,202,p.nair@acmecorp.com,Active
+104,Marcus,Delgado,30,Software Engineer,2020-11-30,105000,203,m.delgado@acmecorp.com,Active
+105,Chen,Li,30,Junior Developer,2022-01-10,61000,203,c.li@acmecorp.com,Active
+106,Amara,Osei,20,HR Coordinator,2021-07-19,54000,103,a.osei@acmecorp.com,Active
+107,Tobias,Brandt,40,Finance Analyst,2018-04-05,78000,204,t.brandt@acmecorp.com,Active
+108,Lucia,Ferrara,40,CFO,2013-09-12,210000,NULL,l.ferrara@acmecorp.com,Active
+109,Derek,Ashworth,10,BI Developer,2016-12-03,91000,201,d.ashworth@acmecorp.com,Terminated
+110,Yuki,Tanaka,30,Software Engineer,2019-05-28,107000,203,YUKI.TANAKA@ACMECORP.COM,Active
+111,Fatima,Al-Hassan,50,Marketing Lead,2020-02-14,83000,NULL,f.alhassan@acmecorp.com,Active
+112,Owen,Griffiths,50,Marketing Coordinator,2023-03-01,52000,111,o.griffiths@acmecorp.com,Active
+113,Nadia,Petrov,20,HR Coordinator,2021-07-19,54000,103,a.osei@acmecorp.com,Active
+114,Samuel,Okonkwo,10,Data Analyst,2021-09-15,999999,201,s.okonkwo2@acmecorp.com,Active
+115,Claire,Dubois,40,Finance Analyst,2017-11-20,NULL,204,c.dubois@acmecorp.com,Active
+department_id,department_name,location,head_count_budget,annual_dept_budget,created_date
+10,Analytics,London,8,620000,2014-01-01
+20,Human Resources,Manchester,5,310000,2013-06-01
+30,Engineering,London,10,950000,2013-06-01
+40,Finance,Edinburgh,6,580000,2013-06-01
+50,Marketing,London,4,380000,2018-03-15
+60,Legal,Edinburgh,3,290000,2020-07-01
+salary_record_id,employee_id,effective_date,end_date,salary_amount,change_reason
+1001,101,2019-03-15,2021-03-14,62000,Starting Salary
+1002,101,2021-03-15,2023-03-14,68000,Annual Review
+1003,101,2023-03-15,NULL,72000,Promotion
+1004,102,2017-08-22,2019-08-21,78000,Starting Salary
+1005,102,2019-08-22,2021-08-21,87000,Annual Review
+1006,102,2021-08-22,NULL,95000,Annual Review
+1007,104,2020-11-30,2022-11-29,92000,Starting Salary
+1008,104,2022-11-30,NULL,105000,Promotion
+1009,107,2018-04-05,2020-04-04,68000,Starting Salary
+1010,107,2020-04-05,2022-04-04,73000,Annual Review
+1011,107,2022-04-05,NULL,78000,Annual Review
+1012,108,2013-09-12,2018-09-11,165000,Starting Salary
+1013,108,2018-09-12,NULL,210000,Promotion
+1014,109,2016-12-03,2022-06-30,85000,Starting Salary
+1015,115,2017-11-20,NULL,NULL,Starting Salary
+review_id,employee_id,review_year,rating,reviewer_id,comments
+2001,101,2022,4,201,"Strong analytical output, good stakeholder communication."
+2002,101,2023,5,201,Exceptional year; led two major dashboard projects.
+2003,102,2022,4,201,Reliable senior contributor.
+2004,102,2023,3,201,Performance dipped mid-year; improvement plan initiated.
+2005,103,2022,5,202,Outstanding leadership during restructure.
+2006,103,2023,5,202,Continues to exceed expectations.
+2007,104,2022,4,203,Solid engineering delivery.
+2008,104,2023,4,203,Delivered major API refactor on schedule.
+2009,105,2023,3,203,Growing steadily; needs mentoring on testing practices.
+2010,107,2022,2,204,Missed several reporting deadlines.
+2011,107,2023,3,204,Improvement noted following coaching sessions.
+2012,110,2022,5,203,Top performer in engineering team.
+2013,110,2023,4,203,Excellent; minor communication gaps with product team.
+2014,111,2023,4,NULL,Led successful product launch campaign.
+2015,114,2023,1,201,Data entry error suspected in salary record; flagged for audit.
+manager_id,employee_id,department_id,manager_title,appointed_date
+201,102,10,Head of Analytics,2019-01-01
+202,103,20,Head of HR,2016-03-01
+203,104,30,Engineering Manager,2022-01-01
+204,108,40,CFO,2013-09-12
+205,111,50,Marketing Lead,2020-02-14
+flag_id,employee_id,field_name,detected_issue,detected_date,resolution_status,notes
+3001,113,email,Duplicate email matches employee 106 (a.osei@acmecorp.com),2024-01-15,Open,Possible duplicate record — ROW_NUMBER deduplication query recommended
+3002,114,salary,Salary value 999999 is a likely placeholder or data entry error,2024-01-15,Open,Statistical outlier — exce

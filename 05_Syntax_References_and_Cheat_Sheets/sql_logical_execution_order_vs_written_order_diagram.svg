@@ -1,0 +1,99 @@
+<svg viewBox="0 0 900 620" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Arial, sans-serif">
+
+  <!-- Background -->
+  <rect width="900" height="620" fill="#f8f9fc" rx="12"/>
+
+  <!-- Title -->
+  <rect x="20" y="14" width="860" height="52" rx="8" fill="#1a2744"/>
+  <text x="450" y="34" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="bold">SQL Logical Execution Order vs. Written Order</text>
+  <text x="450" y="54" text-anchor="middle" fill="#a8c4e8" font-size="11">A critical distinction from Chapter 5 &amp; Chapter 15 — the engine does NOT process clauses as you write them</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- LEFT COLUMN: Written Order -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+
+  <!-- Left column header -->
+  <rect x="30" y="82" width="360" height="36" rx="6" fill="#c0392b"/>
+  <text x="210" y="96" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="bold">✍  WRITTEN ORDER</text>
+  <text x="210" y="111" text-anchor="middle" fill="#ffd5d0" font-size="10">(How you type the query)</text>
+
+  <!-- Written order boxes -->
+  <!-- 1 SELECT -->
+  <rect x="60" y="132" width="300" height="46" rx="6" fill="#fff" stroke="#c0392b" stroke-width="2"/>
+  <rect x="60" y="132" width="42" height="46" rx="6" fill="#c0392b"/>
+  <text x="81" y="159" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">1</text>
+  <text x="230" y="151" text-anchor="middle" fill="#1a2744" font-size="13" font-weight="bold">SELECT</text>
+  <text x="230" y="168" text-anchor="middle" fill="#555" font-size="10">columns, expressions, aggregates</text>
+
+  <!-- arrow -->
+  <line x1="210" y1="178" x2="210" y2="194" stroke="#c0392b" stroke-width="2" marker-end="url(#arrowRed)"/>
+
+  <!-- 2 FROM -->
+  <rect x="60" y="194" width="300" height="46" rx="6" fill="#fff" stroke="#c0392b" stroke-width="2"/>
+  <rect x="60" y="194" width="42" height="46" rx="6" fill="#c0392b"/>
+  <text x="81" y="221" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">2</text>
+  <text x="230" y="213" text-anchor="middle" fill="#1a2744" font-size="13" font-weight="bold">FROM</text>
+  <text x="230" y="230" text-anchor="middle" fill="#555" font-size="10">table name(s) / JOIN targets</text>
+
+  <line x1="210" y1="240" x2="210" y2="256" stroke="#c0392b" stroke-width="2" marker-end="url(#arrowRed)"/>
+
+  <!-- 3 JOIN -->
+  <rect x="60" y="256" width="300" height="46" rx="6" fill="#fff" stroke="#c0392b" stroke-width="2"/>
+  <rect x="60" y="256" width="42" height="46" rx="6" fill="#c0392b"/>
+  <text x="81" y="283" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">3</text>
+  <text x="230" y="275" text-anchor="middle" fill="#1a2744" font-size="13" font-weight="bold">JOIN … ON …</text>
+  <text x="230" y="292" text-anchor="middle" fill="#555" font-size="10">combine tables on matching keys</text>
+
+  <line x1="210" y1="302" x2="210" y2="318" stroke="#c0392b" stroke-width="2" marker-end="url(#arrowRed)"/>
+
+  <!-- 4 WHERE -->
+  <rect x="60" y="318" width="300" height="46" rx="6" fill="#fff" stroke="#c0392b" stroke-width="2"/>
+  <rect x="60" y="318" width="42" height="46" rx="6" fill="#c0392b"/>
+  <text x="81" y="345" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">4</text>
+  <text x="230" y="337" text-anchor="middle" fill="#1a2744" font-size="13" font-weight="bold">WHERE</text>
+  <text x="230" y="354" text-anchor="middle" fill="#555" font-size="10">row-level filter conditions</text>
+
+  <line x1="210" y1="364" x2="210" y2="380" stroke="#c0392b" stroke-width="2" marker-end="url(#arrowRed)"/>
+
+  <!-- 5 GROUP BY -->
+  <rect x="60" y="380" width="300" height="46" rx="6" fill="#fff" stroke="#c0392b" stroke-width="2"/>
+  <rect x="60" y="380" width="42" height="46" rx="6" fill="#c0392b"/>
+  <text x="81" y="407" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">5</text>
+  <text x="230" y="399" text-anchor="middle" fill="#1a2744" font-size="13" font-weight="bold">GROUP BY</text>
+  <text x="230" y="416" text-anchor="middle" fill="#555" font-size="10">bucket rows into groups</text>
+
+  <line x1="210" y1="426" x2="210" y2="442" stroke="#c0392b" stroke-width="2" marker-end="url(#arrowRed)"/>
+
+  <!-- 6 HAVING -->
+  <rect x="60" y="442" width="300" height="46" rx="6" fill="#fff" stroke="#c0392b" stroke-width="2"/>
+  <rect x="60" y="442" width="42" height="46" rx="6" fill="#c0392b"/>
+  <text x="81" y="469" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">6</text>
+  <text x="230" y="461" text-anchor="middle" fill="#1a2744" font-size="13" font-weight="bold">HAVING</text>
+  <text x="230" y="478" text-anchor="middle" fill="#555" font-size="10">filter on aggregated groups</text>
+
+  <line x1="210" y1="488" x2="210" y2="504" stroke="#c0392b" stroke-width="2" marker-end="url(#arrowRed)"/>
+
+  <!-- 7 ORDER BY -->
+  <rect x="60" y="504" width="300" height="46" rx="6" fill="#fff" stroke="#c0392b" stroke-width="2"/>
+  <rect x="60" y="504" width="42" height="46" rx="6" fill="#c0392b"/>
+  <text x="81" y="531" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">7</text>
+  <text x="230" y="523" text-anchor="middle" fill="#1a2744" font-size="13" font-weight="bold">ORDER BY</text>
+  <text x="230" y="540" text-anchor="middle" fill="#555" font-size="10">sort ASC / DESC, multi-column priority</text>
+
+  <line x1="210" y1="550" x2="210" y2="566" stroke="#c0392b" stroke-width="2" marker-end="url(#arrowRed)"/>
+
+  <!-- 8 LIMIT / OFFSET -->
+  <rect x="60" y="566" width="300" height="46" rx="6" fill="#fff" stroke="#c0392b" stroke-width="2"/>
+  <rect x="60" y="566" width="42" height="46" rx="6" fill="#c0392b"/>
+  <text x="81" y="593" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">8</text>
+  <text x="230" y="585" text-anchor="middle" fill="#1a2744" font-size="13" font-weight="bold">LIMIT / OFFSET</text>
+  <text x="230" y="602" text-anchor="middle" fill="#555" font-size="10">cap rows returned; paginate results</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- RIGHT COLUMN: Logical Execution Order -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+
+  <!-- Right column header -->
+  <rect x="510" y="82" width="360" height="36" rx="6" fill="#1a6b3a"/>
+  <text x="690" y="96" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="bold">⚙  LOGICAL EXECUTION ORDER</text>
+  <text x="690" y="111" text

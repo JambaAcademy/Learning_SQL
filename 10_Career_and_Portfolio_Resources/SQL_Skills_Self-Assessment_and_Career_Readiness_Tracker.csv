@@ -1,0 +1,35 @@
+Skill ID,Book Chapter,SQL Concept / Topic,Cognitive Layer (Ch.1 Pyramid),My Confidence (1–5),Last Practiced Date,Days Since Practice,Spaced Rep Status,Next Review Due,Entry-Level Analyst Requirement,Gap to Job-Ready
+SK-01,Ch. 1,Understanding the forgetting curve and why passive reading fails,Foundation,4,2024-11-01,=TODAY()-B6,On Track,=B6+7,Awareness,Low
+SK-02,Ch. 2,"SELECT, FROM, WHERE basics",Foundation,5,2024-11-03,=TODAY()-B7,On Track,=B7+14,Essential,None
+SK-03,Ch. 3,"Filtering with AND, OR, NOT, IN, BETWEEN",Foundation,4,2024-10-28,=TODAY()-B8,Overdue,=B8+7,Essential,Low
+SK-04,Ch. 4,"ORDER BY, LIMIT, DISTINCT",Foundation,3,2024-10-20,=TODAY()-B9,Overdue,=B9+7,Essential,Medium
+SK-05,Ch. 5,"Aggregate functions: COUNT, SUM, AVG, MIN, MAX",Intermediate,3,2024-10-25,=TODAY()-B10,Overdue,=B10+14,Essential,Medium
+SK-06,Ch. 6,GROUP BY and HAVING,Intermediate,2,2024-10-15,=TODAY()-B11,Critical,=B11+7,Essential,High
+SK-07,Ch. 7,"INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL OUTER JOIN",Intermediate,2,2024-10-10,=TODAY()-B12,Critical,=B12+7,Essential,High
+SK-08,Ch. 8,Subqueries and nested SELECT statements,Advanced,2,2024-10-05,=TODAY()-B13,Critical,=B13+14,Important,High
+SK-09,Ch. 9,CTEs (WITH clause) and query readability,Advanced,1,2024-09-30,=TODAY()-B14,Critical,=B14+14,Important,Very High
+SK-10,Ch. 10,"Window functions: ROW_NUMBER, RANK, PARTITION BY",Advanced,1,2024-09-25,=TODAY()-B15,Critical,=B15+21,Desirable,Very High
+SK-11,Ch. 11,"String functions: CONCAT, TRIM, UPPER, SUBSTRING",Intermediate,3,2024-10-22,=TODAY()-B16,Overdue,=B16+14,Important,Medium
+SK-12,Ch. 12,"Date and time functions: DATE_DIFF, EXTRACT, DATEADD",Intermediate,2,2024-10-18,=TODAY()-B17,Critical,=B17+14,Important,High
+SK-13,Ch. 13,"NULL handling: IS NULL, COALESCE, NULLIF",Intermediate,3,2024-10-26,=TODAY()-B18,Overdue,=B18+7,Essential,Medium
+SK-14,Ch. 14,Data cleaning with real messy datasets (production SQL),Advanced,1,2024-09-20,=TODAY()-B19,Critical,=B19+14,Essential,Very High
+SK-15,Ch. 15,"Query optimisation: indexes, execution plans, avoiding SELECT *",Advanced,1,2024-09-15,=TODAY()-B20,Critical,=B20+21,Desirable,Very High
+SK-16,Ch. 16,Portfolio project documentation and public dataset analysis,Practitioner,1,2024-09-10,=TODAY()-B21,Critical,=B21+7,Essential,Very High
+SK-17,Ch. 16,Five SQL interview question types (verbal response prep),Practitioner,2,2024-10-01,=TODAY()-B22,Critical,=B22+7,Essential,High
+SK-18,Ch. 16,Stakeholder clarifying questions and business communication,Practitioner,1,2024-09-28,=TODAY()-B23,Critical,=B23+7,Essential,Very High
+Week,Review Window,Focus Skill IDs,Cognitive Layer Focus,Review Activity Type,Active Recall Method,Estimated Time (min),Completion Status,Confidence Before,Confidence After,Notes / Blockers
+Week 1,Days 1–7,"SK-01, SK-02, SK-03",Foundation,Write queries from memory without reference,"Close laptop, write SELECT/WHERE from scratch",45,Complete,3,4,Forgetting curve highest here — do not skip
+Week 2,Days 8–14,"SK-04, SK-05, SK-02 (re-review)",Foundation + Intermediate,Build a small dataset query end-to-end,Reproduce last week's queries without notes,60,Complete,3,4,Re-review SK-02 to reinforce pyramid base
+Week 3,Days 15–21,"SK-06, SK-07",Intermediate,Write GROUP BY + JOIN queries on a real CSV dataset,Explain each JOIN type aloud before writing,75,In Progress,2,—,JOINs are the #1 interview test area (Ch.16)
+Week 4,Days 22–28,"SK-08, SK-03 (re-review), SK-13",Intermediate + Advanced,Subquery rewrite challenge: replace JOINs with subqueries,Flashcard drill on NULL edge cases,60,Not Started,2,—,NULL handling appears in production SQL daily
+Week 5,Days 29–35,"SK-09, SK-10",Advanced,Refactor a messy query into a CTE; add a window function,Teach the concept back to yourself on paper,90,Not Started,1,—,Highest cognitive load week — space sessions
+Week 6,Days 36–42,"SK-11, SK-12, SK-05 (re-review)",Intermediate,Build a date-range sales analysis query from scratch,No autocomplete — type every function manually,60,Not Started,2,—,Date functions vary by DB; note dialect differences
+Week 7,Days 43–49,"SK-14, SK-13 (re-review)",Advanced,Clean a real messy public dataset (Kaggle or data.gov),Document every cleaning decision in comments,90,Not Started,1,—,Mirrors production SQL reality described in Ch.16
+Week 8,Days 50–56,"SK-15, SK-07 (re-review)",Advanced,Rewrite a slow query; examine execution plan,Explain why SELECT * is harmful without notes,75,Not Started,1,—,Optimisation questions appear in senior interviews
+Week 9,Days 57–63,SK-16 (portfolio),Practitioner,Publish one documented project to GitHub with README,Peer review: would a hiring manager understand this?,120,Not Started,1,—,"Portfolio is proof of thinking, not just syntax (Ch.16)"
+Week 10,Days 64–70,SK-17 (interview prep),Practitioner,Drill all five interview question types with timed verbal answers,Record yourself answering; review for clarity,90,Not Started,2,—,Use STAR format for behavioural SQL questions
+Week 11,Days 71–77,"SK-18 (stakeholder comms), SK-09 (re-review)",Practitioner,Role-play a stakeholder clarifying-questions conversation,Write three business questions you would ask before querying,60,Not Started,1,—,Asking right questions separates analysts from order-takers
+Week 12,Days 78–84,SK-01 through SK-18 (full sweep),All Layers,"End-to-end capstone: answer a business question with SQL, clean output, document analysis",Present findings as if to a non-technical manager,180,Not Started,—,—,Completion = entry-level readiness benchmark
+Readiness Dimension,Measured By,Your Current Score,Target Score (Job-Ready),Status,Evidence Required,Recommended Action,Priority
+Foundation SQL Fluency (SK-01–SK-04),Average confidence rating across SK-01 to SK-04,=AVERAGE(C2:C5),≥ 4.0,"=IF(C2>=4,""Ready"",""Needs Work"")","Can write SELECT, WHERE, ORDER BY from memory in under 2 min",Repeat Week 1–2 spaced rep sessions until score ≥ 4,Critical
+Aggregation and Grouping (SK-05–SK-06),Average confidence rating across SK-05 to SK-06,=AVERAGE(C6:C7),≥ 4.0,"=IF(AVERAGE(C6:C7)>=4,"""

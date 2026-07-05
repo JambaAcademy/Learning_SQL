@@ -1,0 +1,34 @@
+Field,Value
+Log Title,Data Quality Issue Log — SQL Audit Tracker
+Reference Chapters,Chapter 10 & Chapter 14: Data Quality and Cleaning in SQL
+Auditor Name,
+Database / Schema,
+Audit Start Date,
+Audit Completion Date,
+Total Issues Logged,=COUNTA(IssueLog[Issue_ID])
+Critical Issues (Severity = High),"=COUNTIF(IssueLog[Severity],""High"")"
+Issues Resolved,"=COUNTIF(IssueLog[Status],""Resolved"")"
+Issues Pending,"=COUNTIF(IssueLog[Status],""Open"")"
+Issue_ID,Discovery Date,Table Name,Column Name,Issue Category,Issue Sub-Type,Sample Bad Value,Affected Row Count,Total Row Count,Pct Affected,Severity,Detection Query Reference,Recommended SQL Fix,Fix Applied Date,Status,Verified By
+DQ-001,2024-03-01,customers,email,NULL / Blank,NULL value,NULL,412,18500,=C6/D6 → 2.23%,High,SELECT COUNT(*) FROM customers WHERE email IS NULL;,UPDATE customers SET email = 'unknown@placeholder.com' WHERE email IS NULL;,2024-03-04,Resolved,J. Okafor
+DQ-002,2024-03-01,customers,phone,NULL / Blank,Empty string placeholder,'',87,18500,=C7/D7 → 0.47%,Medium,SELECT COUNT(*) FROM customers WHERE TRIM(phone) = '';,UPDATE customers SET phone = NULL WHERE TRIM(phone) = '';,2024-03-05,Resolved,J. Okafor
+DQ-003,2024-03-02,orders,customer_id,Referential Integrity,Orphaned foreign key,99871,34,52300,=C8/D8 → 0.06%,High,SELECT o.customer_id FROM orders o LEFT JOIN customers c ON o.customer_id = c.id WHERE c.id IS NULL;,Investigate source; delete or reassign orphaned order rows after business sign-off,,Open,
+DQ-004,2024-03-02,orders,order_date,Impossible Value,Future date beyond today,2031-07-15,9,52300,=C9/D9 → 0.02%,High,SELECT * FROM orders WHERE order_date > CURRENT_DATE;,DELETE FROM orders WHERE order_date > CURRENT_DATE; — confirm with source system first,,Open,
+DQ-005,2024-03-02,orders,order_date,Impossible Value,Date before business founded,1987-01-01,3,52300,=C10/D10 → 0.01%,High,SELECT * FROM orders WHERE order_date < '2005-01-01';,Flag for manual review; set to NULL pending source confirmation,,Open,
+DQ-006,2024-03-03,products,category,Inconsistent Formatting,Mixed case / spelling variants,"'electronics', 'Electronics', 'ELECTRONICS'",1203,9800,=C11/D11 → 12.27%,Medium,SELECT DISTINCT category FROM products ORDER BY category;,UPDATE products SET category = INITCAP(LOWER(TRIM(category)));,2024-03-06,Resolved,M. Svensson
+DQ-007,2024-03-03,products,price,Outlier / Impossible Value,Statistical outlier (> 3 SD from mean),999999.00,5,9800,=C12/D12 → 0.05%,Medium,SELECT * FROM products WHERE price > (SELECT AVG(price) + 3 * STDDEV(price) FROM products);,Review with pricing team; correct or remove erroneous entries,2024-03-07,Resolved,M. Svensson
+DQ-008,2024-03-03,products,price,Outlier / Impossible Value,Zero or negative price,0.00,11,9800,=C13/D13 → 0.11%,High,SELECT * FROM products WHERE price <= 0;,UPDATE products SET price = NULL WHERE price <= 0; — escalate to catalogue team,,Open,
+DQ-009,2024-03-04,customers,customer_id,Duplicate Record,Exact duplicate primary key,10042,28,18500,=C14/D14 → 0.15%,High,"SELECT customer_id, COUNT() FROM customers GROUP BY customer_id HAVING COUNT() > 1;","Use ROW_NUMBER() PARTITION BY customer_id ORDER BY created_at DESC; retain latest row, delete earlier duplicates",,Open,
+DQ-010,2024-03-04,customers,(full row),Duplicate Record,"Near-duplicate (same name + address, different ID)",Jane Smith / 14 Elm St appearing twice,62,18500,=C15/D15 → 0.34%,Medium,"SELECT name, address, COUNT() FROM customers GROUP BY name, address HAVING COUNT() > 1;",Merge records; keep lowest customer_id as canonical; update foreign keys accordingly,,Open,
+DQ-011,2024-03-05,employees,department,NULL / Blank,Placeholder string,"'N/A', 'TBD', 'none'",74,3200,=C16/D16 → 2.31%,Low,"SELECT * FROM employees WHERE LOWER(TRIM(department)) IN ('n/a','tbd','none','');","UPDATE employees SET department = NULL WHERE LOWER(TRIM(department)) IN ('n/a','tbd','none');",2024-03-08,Resolved,T. Nguyen
+DQ-012,2024-03-05,order_items,quantity,Outlier / Impossible Value,Negative quantity,-3,7,148000,=C17/D17 → 0.00%,High,SELECT * FROM order_items WHERE quantity < 1;,Investigate; likely data entry error — correct to absolute value or remove,,Open,
+DQ-013,2024-03-06,customers,country,Inconsistent Formatting,Non-standard country codes / free text,"'USA', 'United States', 'US', 'U.S.A'",890,18500,=C18/D18 → 4.81%,Medium,SELECT DISTINCT country FROM customers ORDER BY country;,"UPDATE customers SET country = CASE WHEN country IN ('USA','U.S.A','United States') THEN 'US' … END; using CASE WHEN",2024-03-09,Resolved,J. Okafor
+DQ-014,2024-03-06,orders,total_amount,NULL / Blank,NULL in non-nullable business field,NULL,53,52300,=C19/D19 → 0.10%,High,SELECT * FROM orders WHERE total_amount IS NULL;,Recalculate from order_items: UPDATE orders o SET total_amount = (SELECT SUM(price * quantity) FROM order_items oi WHERE oi.order_id = o.id) WHERE total_amount IS NULL;,,Open,
+DQ-015,2024-03-07,order_items,product_id,Referential Integrity,Orphaned foreign key — product deleted,58821,19,148000,=C20/D20 → 0.01%,High,SELECT oi.product_id FROM order_items oi LEFT JOIN products p ON oi.product_id = p.id WHERE p.id IS NULL;,Archive orphaned rows to audit table; remove from active order_items after sign-off,,Open,
+Category Code,Category Label,Chapter 14 Section,Typical Detection Method,Common SQL Functions Used
+CAT-01,NULL / Blank,"Detecting Nulls, Blanks, and Placeholder Values Across a Dataset","IS NULL, TRIM() = '', LOWER() IN ('n/a','tbd')","IS NULL, IS NOT NULL, TRIM, LOWER, COALESCE"
+CAT-02,Duplicate Record,Finding and Handling Duplicates With ROW_NUMBER and Deduplication Queries,GROUP BY + HAVING COUNT(*) > 1; ROW_NUMBER() PARTITION BY,"ROW_NUMBER(), PARTITION BY, GROUP BY, HAVING, COUNT"
+CAT-03,Outlier / Impossible Value,Identifying Outliers and Impossible Values With Statistical Filters,"Compare to AVG ± N×STDDEV; check for negatives, zeros, future dates","AVG, STDDEV, MIN, MAX, BETWEEN, CURRENT_DATE"
+CAT-04,Inconsistent Formatting,Standardising Inconsistent Categories Using CASE WHEN and String Functions,DISTINCT audit; LOWER/UPPER/TRIM comparison,"CASE WHEN, LOWER, UPPER, TRIM, REPLACE, INITCAP"
+CAT-05,Referential Integrity,Auditing Referential Integrity: Orphaned Records and Broken Foreign Keys,LEFT JOIN … WHERE right-side key IS NULL,"LEFT JOIN, IS NULL, NOT IN, NOT EXISTS"
+CAT-06,Impossible Date,Identifying Outliers and Impossible Values With Statistical Filters,Compare to

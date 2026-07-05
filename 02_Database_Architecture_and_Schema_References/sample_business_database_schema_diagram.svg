@@ -1,0 +1,110 @@
+<svg viewBox="0 0 900 680" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Arial, sans-serif">
+
+  <!-- Background -->
+  <rect width="900" height="680" fill="#f8f9fc" rx="12"/>
+
+  <!-- Title -->
+  <rect x="20" y="14" width="860" height="46" rx="8" fill="#1a2e4a"/>
+  <text x="450" y="43" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff" letter-spacing="0.5">Sample Business Database Schema Diagram</text>
+
+  <!-- Subtitle -->
+  <text x="450" y="74" text-anchor="middle" font-size="11.5" fill="#5a6a7e">Primary &amp; Foreign Key Relationships · Used Throughout Join and Query Chapters</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- CUSTOMERS TABLE -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <g id="customers">
+    <rect x="30" y="100" width="210" height="240" rx="8" fill="#ffffff" stroke="#2563eb" stroke-width="2.5" filter="url(#shadow)"/>
+    <!-- Header -->
+    <rect x="30" y="100" width="210" height="36" rx="8" fill="#2563eb"/>
+    <rect x="30" y="120" width="210" height="16" fill="#2563eb"/>
+    <text x="135" y="123" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">CUSTOMERS</text>
+
+    <!-- PK Row -->
+    <rect x="30" y="136" width="210" height="28" fill="#dbeafe"/>
+    <text x="48" y="154" font-size="10.5" font-weight="bold" fill="#1e40af">🔑 customer_id</text>
+    <text x="228" y="154" text-anchor="end" font-size="10" fill="#1e40af">INT · PK</text>
+
+    <!-- Divider -->
+    <line x1="30" y1="164" x2="240" y2="164" stroke="#bfdbfe" stroke-width="1"/>
+
+    <!-- Columns -->
+    <text x="48" y="181" font-size="10.5" fill="#374151">first_name</text>
+    <text x="228" y="181" text-anchor="end" font-size="10" fill="#6b7280">VARCHAR(50)</text>
+    <line x1="30" y1="188" x2="240" y2="188" stroke="#e5e7eb" stroke-width="0.8"/>
+
+    <text x="48" y="205" font-size="10.5" fill="#374151">last_name</text>
+    <text x="228" y="205" text-anchor="end" font-size="10" fill="#6b7280">VARCHAR(50)</text>
+    <line x1="30" y1="212" x2="240" y2="212" stroke="#e5e7eb" stroke-width="0.8"/>
+
+    <text x="48" y="229" font-size="10.5" fill="#374151">email</text>
+    <text x="228" y="229" text-anchor="end" font-size="10" fill="#6b7280">VARCHAR(100)</text>
+    <line x1="30" y1="236" x2="240" y2="236" stroke="#e5e7eb" stroke-width="0.8"/>
+
+    <text x="48" y="253" font-size="10.5" fill="#374151">phone</text>
+    <text x="228" y="253" text-anchor="end" font-size="10" fill="#6b7280">VARCHAR(20)</text>
+    <line x1="30" y1="260" x2="240" y2="260" stroke="#e5e7eb" stroke-width="0.8"/>
+
+    <text x="48" y="277" font-size="10.5" fill="#374151">city</text>
+    <text x="228" y="277" text-anchor="end" font-size="10" fill="#6b7280">VARCHAR(60)</text>
+    <line x1="30" y1="284" x2="240" y2="284" stroke="#e5e7eb" stroke-width="0.8"/>
+
+    <text x="48" y="301" font-size="10.5" fill="#374151">signup_date</text>
+    <text x="228" y="301" text-anchor="end" font-size="10" fill="#6b7280">DATE</text>
+
+    <!-- Cardinality label -->
+    <text x="135" y="330" text-anchor="middle" font-size="9.5" fill="#2563eb" font-style="italic">one customer → many orders</text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- ORDERS TABLE (centre) -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <g id="orders">
+    <rect x="330" y="100" width="230" height="300" rx="8" fill="#ffffff" stroke="#7c3aed" stroke-width="2.5" filter="url(#shadow)"/>
+    <!-- Header -->
+    <rect x="330" y="100" width="230" height="36" rx="8" fill="#7c3aed"/>
+    <rect x="330" y="120" width="230" height="16" fill="#7c3aed"/>
+    <text x="445" y="123" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">ORDERS</text>
+
+    <!-- PK Row -->
+    <rect x="330" y="136" width="230" height="28" fill="#ede9fe"/>
+    <text x="348" y="154" font-size="10.5" font-weight="bold" fill="#5b21b6">🔑 order_id</text>
+    <text x="548" y="154" text-anchor="end" font-size="10" fill="#5b21b6">INT · PK</text>
+    <line x1="330" y1="164" x2="560" y2="164" stroke="#ddd6fe" stroke-width="1"/>
+
+    <!-- FK customer_id -->
+    <rect x="330" y="164" width="230" height="28" fill="#faf5ff"/>
+    <text x="348" y="182" font-size="10.5" font-weight="bold" fill="#7c3aed">🔗 customer_id</text>
+    <text x="548" y="182" text-anchor="end" font-size="10" fill="#7c3aed">INT · FK</text>
+    <line x1="330" y1="192" x2="560" y2="192" stroke="#ddd6fe" stroke-width="1"/>
+
+    <!-- FK employee_id -->
+    <rect x="330" y="192" width="230" height="28" fill="#faf5ff"/>
+    <text x="348" y="210" font-size="10.5" font-weight="bold" fill="#7c3aed">🔗 employee_id</text>
+    <text x="548" y="210" text-anchor="end" font-size="10" fill="#7c3aed">INT · FK</text>
+    <line x1="330" y1="220" x2="560" y2="220" stroke="#ddd6fe" stroke-width="1"/>
+
+    <!-- Columns -->
+    <text x="348" y="237" font-size="10.5" fill="#374151">order_date</text>
+    <text x="548" y="237" text-anchor="end" font-size="10" fill="#6b7280">DATE</text>
+    <line x1="330" y1="244" x2="560" y2="244" stroke="#e5e7eb" stroke-width="0.8"/>
+
+    <text x="348" y="261" font-size="10.5" fill="#374151">status</text>
+    <text x="548" y="261" text-anchor="end" font-size="10" fill="#6b7280">VARCHAR(20)</text>
+    <line x1="330" y1="268" x2="560" y2="268" stroke="#e5e7eb" stroke-width="0.8"/>
+
+    <text x="348" y="285" font-size="10.5" fill="#374151">total_amount</text>
+    <text x="548" y="285" text-anchor="end" font-size="10" fill="#6b7280">DECIMAL(10,2)</text>
+    <line x1="330" y1="292" x2="560" y2="292" stroke="#e5e7eb" stroke-width="0.8"/>
+
+    <text x="348" y="309" font-size="10.5" fill="#374151">shipping_address</text>
+    <text x="548" y="309" text-anchor="end" font-size="10" fill="#6b7280">VARCHAR(200)</text>
+    <line x1="330" y1="316" x2="560" y2="316" stroke="#e5e7eb" stroke-width="0.8"/>
+
+    <text x="348" y="333" font-size="10.5" fill="#374151">payment_method</text>
+    <text x="548" y="333" text-anchor="end" font-size="10" fill="#6b7280">VARCHAR(30)</text>
+
+    <text x="445" y="390" text-anchor="middle" font-size="9.5" fill="#7c3aed" font-style="italic">junction: links customers, employees</text>
+  </g>
+
+  <!-- ═══

@@ -1,0 +1,97 @@
+<svg viewBox="0 0 800 920" xmlns="http://www.w3.org/2000/svg" font-family="Georgia, 'Times New Roman', serif">
+
+  <!-- Background -->
+  <rect width="800" height="920" fill="#f8f6f1" rx="8"/>
+
+  <!-- Title -->
+  <text x="400" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a2e">Progressive Skill Layering Dependency Map</text>
+  <text x="400" y="58" text-anchor="middle" font-size="12" fill="#555" font-style="italic">Every SQL concept rests on a foundation your brain has already consolidated</text>
+
+  <!-- Subtitle bar -->
+  <rect x="60" y="68" width="680" height="3" fill="#c0392b" rx="2"/>
+
+  <!-- ============================================================
+       LEVEL 1 — Foundation (widest, bottom of pyramid)
+  ============================================================ -->
+  <!-- Trapezoid for Level 1 -->
+  <polygon points="40,840 760,840 720,760 80,760" fill="#2c3e50" opacity="0.92"/>
+  <text x="400" y="793" text-anchor="middle" font-size="13" font-weight="bold" fill="#ecf0f1">LEVEL 1 — FOUNDATION</text>
+  <text x="400" y="812" text-anchor="middle" font-size="11" fill="#bdc3c7">Cognitive System Setup · Spaced Repetition Schedule · Active Recall Habits</text>
+  <text x="400" y="828" text-anchor="middle" font-size="10" fill="#95a5a6" font-style="italic">Chapter 1 principle: Configure your learning system before writing your first query</text>
+
+  <!-- Level 1 detail boxes -->
+  <rect x="80" y="845" width="185" height="52" rx="6" fill="#34495e" stroke="#7f8c8d" stroke-width="1"/>
+  <text x="172" y="864" text-anchor="middle" font-size="10" font-weight="bold" fill="#ecf0f1">Forgetting Curve Awareness</text>
+  <text x="172" y="878" text-anchor="middle" font-size="9" fill="#bdc3c7">Passive reading ≠ durable skill</text>
+  <text x="172" y="891" text-anchor="middle" font-size="9" fill="#bdc3c7">Unreinforced syntax fades in days</text>
+
+  <rect x="307" y="845" width="185" height="52" rx="6" fill="#34495e" stroke="#7f8c8d" stroke-width="1"/>
+  <text x="399" y="864" text-anchor="middle" font-size="10" font-weight="bold" fill="#ecf0f1">Spaced Repetition Engine</text>
+  <text x="399" y="878" text-anchor="middle" font-size="9" fill="#bdc3c7">Rewires technical memory</text>
+  <text x="399" y="891" text-anchor="middle" font-size="9" fill="#bdc3c7">Reconstruct, don't just recognise</text>
+
+  <rect x="534" y="845" width="185" height="52" rx="6" fill="#34495e" stroke="#7f8c8d" stroke-width="1"/>
+  <text x="626" y="864" text-anchor="middle" font-size="10" font-weight="bold" fill="#ecf0f1">Active Recall Practice</text>
+  <text x="626" y="878" text-anchor="middle" font-size="9" fill="#bdc3c7">Forces brain to rebuild knowledge</text>
+  <text x="626" y="891" text-anchor="middle" font-size="9" fill="#bdc3c7">Outperforms passive re-reading</text>
+
+  <!-- ============================================================
+       LEVEL 2 — Core SQL Syntax
+  ============================================================ -->
+  <polygon points="100,750 700,750 660,670 140,670" fill="#1a5276" opacity="0.93"/>
+  <text x="400" y="703" text-anchor="middle" font-size="13" font-weight="bold" fill="#ecf0f1">LEVEL 2 — CORE SQL SYNTAX</text>
+  <text x="400" y="720" text-anchor="middle" font-size="11" fill="#aed6f1">SELECT · FROM · WHERE · ORDER BY · LIMIT</text>
+  <text x="400" y="737" text-anchor="middle" font-size="10" fill="#7fb3d3" font-style="italic">Dependency: Spaced repetition schedule active; active recall drills begun</text>
+
+  <!-- Arrow Level 1 → Level 2 -->
+  <line x1="400" y1="760" x2="400" y2="752" stroke="#e74c3c" stroke-width="2.5" marker-end="url(#arrowRed)"/>
+
+  <!-- ============================================================
+       LEVEL 3 — Filtering & Sorting
+  ============================================================ -->
+  <polygon points="155,660 645,660 605,580 195,580" fill="#154360" opacity="0.93"/>
+  <text x="400" y="613" text-anchor="middle" font-size="13" font-weight="bold" fill="#ecf0f1">LEVEL 3 — FILTERING &amp; SORTING</text>
+  <text x="400" y="630" text-anchor="middle" font-size="11" fill="#aed6f1">AND · OR · NOT · IN · BETWEEN · LIKE · NULL handling</text>
+  <text x="400" y="647" text-anchor="middle" font-size="10" fill="#7fb3d3" font-style="italic">Dependency: Core syntax consolidated via spaced review sessions</text>
+
+  <!-- Arrow Level 2 → Level 3 -->
+  <line x1="400" y1="670" x2="400" y2="662" stroke="#e74c3c" stroke-width="2.5" marker-end="url(#arrowRed)"/>
+
+  <!-- ============================================================
+       LEVEL 4 — Aggregation & Grouping
+  ============================================================ -->
+  <polygon points="205,570 595,570 558,490 242,490" fill="#1e8449" opacity="0.92"/>
+  <text x="400" y="523" text-anchor="middle" font-size="13" font-weight="bold" fill="#ecf0f1">LEVEL 4 — AGGREGATION &amp; GROUPING</text>
+  <text x="400" y="540" text-anchor="middle" font-size="11" fill="#a9dfbf">COUNT · SUM · AVG · MIN · MAX · GROUP BY · HAVING</text>
+  <text x="400" y="557" text-anchor="middle" font-size="10" fill="#7dcea0" font-style="italic">Dependency: Filtering logic fully recalled without reference material</text>
+
+  <!-- Arrow Level 3 → Level 4 -->
+  <line x1="400" y1="580" x2="400" y2="572" stroke="#e74c3c" stroke-width="2.5" marker-end="url(#arrowRed)"/>
+
+  <!-- ============================================================
+       LEVEL 5 — Joins
+  ============================================================ -->
+  <polygon points="255,480 545,480 510,400 290,400" fill="#7d6608" opacity="0.93"/>
+  <text x="400" y="432" text-anchor="middle" font-size="13" font-weight="bold" fill="#fef9e7">LEVEL 5 — JOINS</text>
+  <text x="400" y="449" text-anchor="middle" font-size="11" fill="#f9e79f">INNER · LEFT · RIGHT · FULL OUTER · CROSS</text>
+  <text x="400" y="466" text-anchor="middle" font-size="10" fill="#f0d060" font-style="italic">Dependency: Aggregation patterns consolidated; multi-table thinking ready</text>
+
+  <!-- Arrow Level 4 → Level 5 -->
+  <line x1="400" y1="490" x2="400" y2="482" stroke="#e74c3c" stroke-width="2.5" marker-end="url(#arrowRed)"/>
+
+  <!-- ============================================================
+       LEVEL 6 — Subqueries & CTEs
+  ============================================================ -->
+  <polygon points="300,390 500,390 468,310 332,310" fill="#6e2f8a" opacity="0.93"/>
+  <text x="400" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#f5eef8">LEVEL 6 — SUBQUERIES &amp; CTEs</text>
+  <text x="400" y="357" text-anchor="middle" font-size="10" fill="#d7bde2">Nested SELECT · WITH clause · Derived tables</text>
+  <text x="400" y="374" text-anchor="middle" font-size="9" fill="#c39bd3" font-style="italic">Dependency: Join logic recalled fluently under active recall testing</text>
+
+  <!-- Arrow Level 5 → Level 6 -->
+  <line x1="400" y1="400" x2="400" y2="392" stroke="#e74c3c" stroke-width="2.5" marker-end="url(#arrowRed)"/>
+
+  <!-- ============================================================
+       LEVEL 7 — Window Functions & Advanced Analytics
+  ============================================================ -->
+  <polygon points="340,300 460,300 432,222 368,222" fill="#922b21" opacity="0.93"/>
+  <text x="400" y="250" text-anchor="middle" font-size="11"

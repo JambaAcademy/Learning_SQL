@@ -1,0 +1,42 @@
+Field,Guidance
+Table Name,"Exact name used in the database schema (e.g., fact_orders)"
+Column Name,Exact column name as it appears in the schema
+Data Type,"SQL data type: INT, VARCHAR(n), DATE, DECIMAL(p,s), BOOLEAN, TIMESTAMP, etc."
+Primary Key,Enter YES if this column is the primary key (PK)
+Foreign Key,Enter YES and reference the parent table.column if this is a foreign key (FK)
+NOT NULL,Enter YES if the column requires a value; NO if NULLs are permitted
+Default Value,Enter the default value if one is defined; leave blank if none
+Indexed,Enter YES if an index exists on this column; NO if not indexed
+Index Type,"CLUSTERED, NON-CLUSTERED, UNIQUE, COMPOSITE, or leave blank if not indexed"
+References,"For FK columns, write the parent table and column in format: table_name.column_name"
+Normal Form,"Indicate the highest normal form this table satisfies: 1NF, 2NF, or 3NF"
+Schema Layer,"FACT, DIMENSION, STAGING, LOOKUP, or BRIDGE"
+Description,Plain-language explanation of what the column stores and how it is used in queries
+Example Value,A realistic sample value to aid query writing and data validation
+Last Updated,Date this data dictionary entry was reviewed or modified
+Table Name,Column Name,Data Type,Primary Key,Foreign Key,NOT NULL,Default Value,Indexed,Index Type,References,Normal Form,Schema Layer,Description,Example Value,Last Updated
+fact_orders,order_id,INT,YES,NO,YES,,YES,CLUSTERED,,3NF,FACT,Surrogate primary key uniquely identifying each order transaction row; used as the join anchor in analytical queries against this fact table,100842,2024-11-01
+fact_orders,order_date_key,INT,NO,YES,YES,,YES,NON-CLUSTERED,dim_date.date_key,3NF,FACT,"Foreign key linking to dim_date; enables time-based GROUP BY and WHERE filters across day, month, quarter, and year without storing redundant date attributes in the fact table",20240315,2024-11-01
+fact_orders,customer_key,INT,NO,YES,YES,,YES,NON-CLUSTERED,dim_customer.customer_key,3NF,FACT,Foreign key linking to dim_customer; supports JOIN to customer demographics and segment data; a missing index on this column can turn a two-second query into a two-minute bottleneck,7421,2024-11-01
+fact_orders,product_key,INT,NO,YES,YES,,YES,NON-CLUSTERED,dim_product.product_key,3NF,FACT,Foreign key linking to dim_product; central to star schema spoke joins; in a snowflake schema this key may instead reference dim_product_subcategory,3309,2024-11-01
+fact_orders,store_key,INT,NO,YES,YES,,YES,NON-CLUSTERED,dim_store.store_key,3NF,FACT,Foreign key linking to dim_store; enables regional and geographic aggregations; part of the spoke pattern in the star schema surrounding this fact table,18,2024-11-01
+fact_orders,quantity_sold,INT,NO,NO,YES,,NO,,,3NF,FACT,Additive measure recording the number of units sold in a single order line; safe to SUM across all dimension grain levels without distortion,3,2024-11-01
+fact_orders,unit_price,"DECIMAL(10,2)",NO,NO,YES,,NO,,,3NF,FACT,Price per unit at time of sale; stored in the fact table rather than dim_product to preserve historical accuracy and prevent update anomalies when product prices change,49.99,2024-11-01
+fact_orders,discount_amount,"DECIMAL(10,2)",NO,NO,NO,0.00,NO,,,3NF,FACT,Monetary discount applied to the order line; defaults to 0.00 when no discount is given; NULLs are not permitted to avoid aggregation errors in SUM calculations,5.00,2024-11-01
+fact_orders,total_revenue,"DECIMAL(12,2)",NO,NO,YES,,NO,,,3NF,FACT,Calculated as (quantity_sold * unit_price) - discount_amount; stored as a derived column for query performance; formula: =quantity_sold * unit_price - discount_amount,144.97,2024-11-01
+fact_orders,is_returned,BOOLEAN,NO,NO,YES,FALSE,NO,,,3NF,FACT,Flag indicating whether the order line was subsequently returned; used in WHERE clauses to filter analytical reports to completed sales only,FALSE,2024-11-01
+fact_orders,created_at,TIMESTAMP,NO,NO,YES,CURRENT_TIMESTAMP,NO,,,3NF,FACT,System timestamp recording when the row was inserted into the database; used for auditing and incremental ETL loads; not intended for business-level date filtering,2024-03-15 09:42:11,2024-11-01
+Table Name,Column Name,Data Type,Primary Key,Foreign Key,NOT NULL,Default Value,Indexed,Index Type,References,Normal Form,Schema Layer,Description,Example Value,Last Updated
+dim_customer,customer_key,INT,YES,NO,YES,,YES,CLUSTERED,,3NF,DIMENSION,Surrogate primary key for the customer dimension; referenced by fact_orders.customer_key; using a surrogate key instead of the source system ID protects the schema from upstream data changes,7421,2024-11-01
+dim_customer,customer_id,VARCHAR(20),NO,NO,YES,,YES,UNIQUE,,3NF,DIMENSION,Natural key from the source transactional system; indexed with a UNIQUE constraint to prevent duplicate customer records entering the dimension; useful for tracing rows back to the operational database,CUST-00007421,2024-11-01
+dim_customer,first_name,VARCHAR(100),NO,NO,YES,,NO,,,3NF,DIMENSION,Customer first name; stored separately from last_name in compliance with 1NF atomicity rules — combining names into one column would violate first normal form and complicate WHERE filtering,Amara,2024-11-01
+dim_customer,last_name,VARCHAR(100),NO,NO,YES,,NO,,,3NF,DIMENSION,Customer last name; separated from first_name to satisfy 1NF; enables ORDER BY last_name and precise WHERE last_name = filtering in analytical queries,Okonkwo,2024-11-01
+dim_customer,email_address,VARCHAR(255),NO,NO,NO,,YES,NON-CLUSTERED,,3NF,DIMENSION,Customer email; indexed to support fast lookup queries; NULLs permitted for legacy records migrated before email capture was mandatory,amara.okonkwo@email.com,2024-11-01
+dim_customer,customer_segment,VARCHAR(50),NO,NO,NO,'Standard',YES,NON-CLUSTERED,,3NF,DIMENSION,"Business-defined segment label such as Premium, Standard, or Wholesale; used heavily in GROUP BY clauses for segmentation reports; defaults to Standard when no segment is assigned",Premium,2024-11-01
+dim_customer,region,VARCHAR(100),NO,NO,NO,,YES,NON-CLUSTERED,,3NF,DIMENSION,Geographic region of the customer; stored in dim_customer rather than a separate dim_region table in a star schema design; a snowflake schema would normalise this into its own table,North East,2024-11-01
+dim_customer,country,VARCHAR(100),NO,NO,NO,,NO,,,3NF,DIMENSION,"Country of the customer; functionally dependent only on customer_key and not on any non-key column, satisfying 3NF; removing transitive dependencies between region and country was a key normalisation step",United Kingdom,2024-11-01
+dim_customer,registration_date,DATE,NO,NO,NO,,NO,,,3NF,DIMENSION,Date the customer first registered; used in date arithmetic queries such as calculating customer tenure; JOIN to dim_date via this column requires a date-to-key conversion,2019-06-22,2024-11-01
+dim_customer,is_active,BOOLEAN,NO,NO,YES,TRUE,NO,,,3NF,DIMENSION,Indicates whether the customer account is currently active; filter with WHERE is_active = TRUE in operational reports to exclude churned customers from revenue summaries,TRUE,2024-11-01
+Table Name,Column Name,Data Type,Primary Key,Foreign Key,NOT NULL,Default Value,Indexed,Index Type,References,Normal Form,Schema Layer,Description,Example Value,Last Updated
+dim_product,product_key,INT,YES,NO,YES,,YES,CLUSTERED,,3NF,DIMENSION,"Surrogate primary key for the product dimension; referenced by fact_orders.product_key; insulates the schema from changes to source product codes, preventing update anomalies in the fact table",3309,2024-11-01
+dim_product,product_id,VARCHAR(30),NO,NO,YES,,YES,UNIQUE,,3NF

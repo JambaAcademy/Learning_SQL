@@ -1,0 +1,98 @@
+<svg viewBox="0 0 900 620" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Arial, sans-serif">
+
+  <!-- Background -->
+  <rect width="900" height="620" fill="#0f1923" rx="12"/>
+
+  <!-- Title -->
+  <text x="450" y="38" text-anchor="middle" fill="#e8f4fd" font-size="20" font-weight="bold">JOIN Type Visual Reference Card — Chapter 7</text>
+  <text x="450" y="58" text-anchor="middle" fill="#8ab4cc" font-size="12">Each JOIN controls which rows survive when combining tables on a shared key</text>
+
+  <!-- Shared key label -->
+  <text x="450" y="80" text-anchor="middle" fill="#f0c040" font-size="11" font-style="italic">Shared key (e.g. customers.customer_id = orders.customer_id)</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- ROW 1: INNER JOIN (left) + LEFT JOIN (right)           -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+
+  <!-- ── INNER JOIN panel ── -->
+  <rect x="30" y="95" width="390" height="210" fill="#111e2b" rx="10" stroke="#2a4a6b" stroke-width="1.5"/>
+  <text x="225" y="118" text-anchor="middle" fill="#4fc3f7" font-size="15" font-weight="bold">INNER JOIN</text>
+  <text x="225" y="134" text-anchor="middle" fill="#8ab4cc" font-size="10">Returns ONLY rows with a match on BOTH sides</text>
+
+  <!-- Left circle -->
+  <ellipse cx="185" cy="195" rx="72" ry="52" fill="#1a3a5c" fill-opacity="0.85" stroke="#4fc3f7" stroke-width="2"/>
+  <!-- Right circle -->
+  <ellipse cx="265" cy="195" rx="72" ry="52" fill="#1a3a5c" fill-opacity="0.85" stroke="#4fc3f7" stroke-width="2"/>
+  <!-- Intersection highlight -->
+  <clipPath id="leftClipInner">
+    <ellipse cx="185" cy="195" rx="72" ry="52"/>
+  </clipPath>
+  <ellipse cx="265" cy="195" rx="72" ry="52" fill="#4fc3f7" fill-opacity="0.45" stroke="none" clip-path="url(#leftClipInner)"/>
+  <!-- Intersection border -->
+  <ellipse cx="265" cy="195" rx="72" ry="52" fill="none" stroke="#4fc3f7" stroke-width="2"/>
+
+  <!-- Labels inside circles -->
+  <text x="163" y="191" text-anchor="middle" fill="#cce8f8" font-size="10" font-weight="bold">customers</text>
+  <text x="163" y="204" text-anchor="middle" fill="#8ab4cc" font-size="9">(Left Table)</text>
+  <text x="287" y="191" text-anchor="middle" fill="#cce8f8" font-size="10" font-weight="bold">orders</text>
+  <text x="287" y="204" text-anchor="middle" fill="#8ab4cc" font-size="9">(Right Table)</text>
+  <text x="225" y="191" text-anchor="middle" fill="#ffffff" font-size="9" font-weight="bold">✓ Match</text>
+  <text x="225" y="203" text-anchor="middle" fill="#e0f0ff" font-size="8">returned</text>
+
+  <!-- Unmatched X marks -->
+  <text x="148" y="198" text-anchor="middle" fill="#ef5350" font-size="13" font-weight="bold">✗</text>
+  <text x="302" y="198" text-anchor="middle" fill="#ef5350" font-size="13" font-weight="bold">✗</text>
+
+  <!-- Syntax box -->
+  <rect x="50" y="258" width="350" height="36" fill="#0d2233" rx="6" stroke="#2a4a6b" stroke-width="1"/>
+  <text x="225" y="273" text-anchor="middle" fill="#80cbc4" font-size="10" font-family="'Courier New', monospace">SELECT * FROM customers</text>
+  <text x="225" y="287" text-anchor="middle" fill="#80cbc4" font-size="10" font-family="'Courier New', monospace">INNER JOIN orders ON customers.customer_id = orders.customer_id;</text>
+
+  <!-- ── LEFT JOIN panel ── -->
+  <rect x="480" y="95" width="390" height="210" fill="#111e2b" rx="10" stroke="#2a4a6b" stroke-width="1.5"/>
+  <text x="675" y="118" text-anchor="middle" fill="#a5d6a7" font-size="15" font-weight="bold">LEFT JOIN</text>
+  <text x="675" y="134" text-anchor="middle" fill="#8ab4cc" font-size="10">Keeps ALL rows from the Left table; NULLs for no match on Right</text>
+
+  <!-- Left circle -->
+  <ellipse cx="635" cy="195" rx="72" ry="52" fill="#4caf50" fill-opacity="0.30" stroke="#a5d6a7" stroke-width="2"/>
+  <!-- Right circle -->
+  <ellipse cx="715" cy="195" rx="72" ry="52" fill="#1a3a5c" fill-opacity="0.85" stroke="#a5d6a7" stroke-width="2"/>
+  <!-- Intersection highlight (part of left) -->
+  <clipPath id="leftClipLeft">
+    <ellipse cx="635" cy="195" rx="72" ry="52"/>
+  </clipPath>
+  <ellipse cx="715" cy="195" rx="72" ry="52" fill="#a5d6a7" fill-opacity="0.35" stroke="none" clip-path="url(#leftClipLeft)"/>
+
+  <!-- Labels -->
+  <text x="610" y="191" text-anchor="middle" fill="#cce8f8" font-size="10" font-weight="bold">customers</text>
+  <text x="610" y="204" text-anchor="middle" fill="#8ab4cc" font-size="9">(Left Table)</text>
+  <text x="737" y="191" text-anchor="middle" fill="#cce8f8" font-size="10" font-weight="bold">orders</text>
+  <text x="737" y="204" text-anchor="middle" fill="#8ab4cc" font-size="9">(Right Table)</text>
+  <text x="675" y="191" text-anchor="middle" fill="#ffffff" font-size="9" font-weight="bold">✓ Match</text>
+  <text x="675" y="203" text-anchor="middle" fill="#e0f0ff" font-size="8">returned</text>
+
+  <!-- Left unmatched = kept, right unmatched = dropped -->
+  <text x="598" y="196" text-anchor="middle" fill="#a5d6a7" font-size="13" font-weight="bold">✓</text>
+  <text x="752" y="196" text-anchor="middle" fill="#ef5350" font-size="13" font-weight="bold">✗</text>
+  <text x="598" y="208" text-anchor="middle" fill="#a5d6a7" font-size="8">NULL</text>
+
+  <!-- Syntax box -->
+  <rect x="500" y="258" width="350" height="36" fill="#0d2233" rx="6" stroke="#2a4a6b" stroke-width="1"/>
+  <text x="675" y="273" text-anchor="middle" fill="#80cbc4" font-size="10" font-family="'Courier New', monospace">SELECT * FROM customers</text>
+  <text x="675" y="287" text-anchor="middle" fill="#80cbc4" font-size="10" font-family="'Courier New', monospace">LEFT JOIN orders ON customers.customer_id = orders.customer_id;</text>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- ROW 2: RIGHT JOIN (left) + FULL OUTER JOIN (right)     -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+
+  <!-- ── RIGHT JOIN panel ── -->
+  <rect x="30" y="320" width="390" height="210" fill="#111e2b" rx="10" stroke="#2a4a6b" stroke-width="1.5"/>
+  <text x="225" y="343" text-anchor="middle" fill="#ffcc80" font-size="15" font-weight="bold">RIGHT JOIN</text>
+  <text x="225" y="359" text-anchor="middle" fill="#8ab4cc" font-size="10">Keeps ALL rows from the Right table; NULLs for no match on Left</text>
+
+  <!-- Left circle -->
+  <ellipse cx="185" cy="420" rx="72" ry="52" fill="#1a3a5c" fill-opacity="0.85" stroke="#ffcc80" stroke-width="2"/>
+  <!-- Right circle -->
+  <ellipse cx="265" cy="420" rx="72" ry="52" fill="#ff9800" fill-opacity="0.28" stroke="#ffcc80" stroke-width="2"/>
+  <!-- Intersection highlight (part of right) -->
+  <clipPath id="

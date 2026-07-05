@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SQL Portfolio Showcase — The Science of Learning SQL</title>
+<style>
+  /* ── Reset & Base ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy:       #0f1e3c;
+    --navy-mid:   #1a3260;
+    --blue:       #2563eb;
+    --blue-light: #3b82f6;
+    --teal:       #0d9488;
+    --teal-light: #14b8a6;
+    --amber:      #d97706;
+    --amber-light:#fbbf24;
+    --slate-dark: #1e293b;
+    --slate:      #334155;
+    --slate-mid:  #475569;
+    --slate-light:#94a3b8;
+    --silver:     #cbd5e1;
+    --ghost:      #f1f5f9;
+    --white:      #ffffff;
+    --code-bg:    #0d1117;
+    --code-green: #7ee787;
+    --code-blue:  #79c0ff;
+    --code-purple:#d2a8ff;
+    --code-orange:#ffa657;
+    --code-gray:  #8b949e;
+    --radius:     8px;
+    --radius-lg:  14px;
+    --shadow:     0 2px 12px rgba(0,0,0,.18);
+    --shadow-lg:  0 6px 32px rgba(0,0,0,.28);
+    font-size: 16px;
+  }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--ghost);
+    color: var(--slate-dark);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── Top Banner ── */
+  .top-banner {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #1e3a8a 100%);
+    color: var(--white);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow);
+  }
+  .top-banner .brand {
+    font-size: .85rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    color: var(--silver);
+    text-transform: uppercase;
+  }
+  .top-banner .chapter-tag {
+    background: var(--blue);
+    color: var(--white);
+    font-size: .78rem;
+    font-weight: 700;
+    padding: .25rem .75rem;
+    border-radius: 20px;
+    letter-spacing: .05em;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    background: linear-gradient(160deg, var(--navy-mid) 0%, var(--slate-dark) 100%);
+    color: var(--white);
+    padding: 3.5rem 2rem 2.5rem;
+    text-align: center;
+  }
+  .hero h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -.02em;
+    line-height: 1.2;
+    margin-bottom: .75rem;
+  }
+  .hero h1 span { color: var(--teal-light); }
+  .hero .subtitle {
+    font-size: 1.05rem;
+    color: var(--silver);
+    max-width: 640px;
+    margin: 0 auto 1.5rem;
+  }
+  .hero .chapter-note {
+    display: inline-block;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 6px;
+    padding: .45rem 1.1rem;
+    font-size: .82rem;
+    color: var(--silver);
+    letter-spacing: .03em;
+  }
+  .hero .chapter-note strong { color: var(--amber-light); }
+
+  /* ── Layout ── */
+  .page-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  /* ── Section Headers ── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin: 2.5rem 0 1.25rem;
+  }
+  .section-header .icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  .icon-blue  { background: #dbeafe; }
+  .icon-teal  { background: #ccfbf1; }
+  .icon-amber { background: #fef3c7; }
+  .icon-purple{ background: #ede9fe; }
+  .icon-rose  { background: #ffe4e6; }
+  .section-header h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--navy);
+  }
+  .section-header p {
+    font-size: .82rem;
+    color: var(--slate-mid);
+    margin-top: .1rem;
+  }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+  .card-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .card-header h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--navy);
+  }
+  .card-body { padding: 1.5rem; }
+
+  /* ── Badges ── */
+  .badge {
+    display: inline-block;
+    font-size: .72rem;
+    font-weight: 700;
+    padding: .2rem .65rem;
+    border-radius: 20px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+  .badge-blue   { background: #dbeafe; color: #1d4ed8; }
+  .badge-teal   { background: #ccfbf1; color: #0f766e; }
+  .badge-amber  { background: #fef3c7; color: #92400e; }
+  .badge-purple { background: #ede9fe; color: #6d28d9; }
+  .badge-rose   { background: #ffe4e6; color: #be123c; }
+  .badge-slate  { background: #f1f5f9; color: #475569; }
+
+  /* ── Project Summary Template ── */
+  .project-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .meta-field label {
+    display: block;
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--slate-mid);
+    margin-bottom: .3rem;
+  }
+  .meta-field .value {
+    font-size: .9rem;
+    color: var(--slate-dark);
+    font-weight: 500;
+    background: var(--ghost);
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: .45rem .75rem;
+  }
+  .editable-hint {
+    font-size: .78rem;
+    color: var(--slate-light);
+    font-style: italic;
+    margin-top: .2rem;
+  }
+  .project-description {
+    background: var(--ghost);
+    border-left: 4px solid var(--blue);
+    border-radius: 0 6px 6px 0;
+    padding: 1rem 1.25rem;
+    font-size: .92rem;
+    color: var(--slate);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+  .skills-row { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .75rem; }
+
+  /* ── Code Block ── */
+  .code-block-wrap {
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,.22);
+  }
+  .code-block-bar {
+    background: #161b22;
+    padding: .55rem

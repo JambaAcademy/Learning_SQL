@@ -1,0 +1,51 @@
+customer_id,first_name,last_name,email,phone,city,state,signup_date,annual_spend,loyalty_tier
+1001,Alice,Morrison,alice.morrison@email.com,555-0142,New York,NY,2022-03-15,1240.50,Gold
+1002,BOB,CHEN,BOB.CHEN@EMAIL.COM,5550198,los angeles,ca,2021-11-02,875.00,silver
+1003,carol,NULL,carol99@webmail.net,555-0317,Chicago,IL,2023-07-40,-99,BRONZE
+1004,NULL,Patel,NULL,000-0000,Houston,TX,2022-06-18,3400.75,Gold
+1005,David,Nguyen,david.nguyen@email.com,555-0261,Phoenix,AZ,2020-02-29,210.00,bronze
+1006,EMILY,SANTOS,emily.santos@email.com,555-0384,New York,NY,2023-01-09,1875.25,GOLD
+1007,emily,santos,emily.santos@email.com,555-0384,new york,ny,2023-01-09,1875.25,gold
+1008,Frank,NULL,N/A,555-0455,NULL,FL,2019-13-01,99999,NULL
+1009,grace,Kim,grace.kim@email.com,555-0512,Seattle,WA,2021-08-22,640.00,Silver
+1010,NULL,NULL,tbd,NULL,Dallas,TX,NULL,NULL,Bronze
+1011,Hector,Alvarez,hector.alvarez@email.com,555-0603,Miami,FL,2022-04-30,2100.00,gold
+1012,ISABELLA,WRIGHT,isabella.wright@email.com,555-0719,chicago,il,2023-09-15,950.50,Silver
+1013,james,oconnor,james.oconnor@email.com,555-0827,Portland,OR,2021-00-14,430.25,bronze
+order_id,customer_id,product_name,category,order_date,ship_date,quantity,unit_price,discount_pct,order_status
+5001,1001,Wireless Headphones,Electronics,2023-06-12,2023-06-15,2,89.99,10,Completed
+5002,1002,WIRELESS HEADPHONES,ELECTRONICS,2023-06-12,2023-06-14,1,89.99,0,completed
+5003,1003,Running Shoes,footwear,2023-07-01,NULL,1,120.00,5,Pending
+5004,1004,running shoes,Footwear,2023-07-01,2023-06-28,3,120.00,5,PENDING
+5005,1005,Office Chair,Furniture,2022-02-30,2022-03-05,1,345.00,NULL,Completed
+5006,1006,Laptop Stand,electronics,2023-08-19,2023-08-22,4,45.50,15,Completed
+5007,9999,Desk Lamp,Furniture,2023-05-10,2023-05-13,2,32.00,0,Completed
+5008,1008,Yoga Mat,Fitness,NULL,NULL,-1,55.00,10,NULL
+5009,1009,Yoga Mat,fitness,2023-03-27,2023-03-29,1,55.00,10,Completed
+5010,1010,NULL,NULL,2023-09-05,2023-09-08,0,0.00,NULL,Shipped
+5011,1011,Bluetooth Speaker,Electronics,2023-10-02,2023-10-06,2,75.00,20,Completed
+5012,1011,Bluetooth Speaker,Electronics,2023-10-02,2023-10-06,2,75.00,20,Completed
+5013,1012,Desk Lamp,Furniture,2023-11-15,2023-11-18,1,32.00,5,shipped
+5014,1013,Backpack,N/A,2023-12-01,2023-11-30,1,65.00,0,Completed
+employee_id,full_name,department,job_title,hire_date,salary,manager_id,office_city,employment_type,performance_score
+E001,Sarah Mitchell,SALES,Sales Representative,2019-04-15,58000,E010,New York,Full-Time,4.2
+E002,JAMES FORD,sales,sales representative,2020-09-01,58000,E010,new york,full-time,3.8
+E003,NULL,Marketing,Marketing Analyst,2021-03-22,62000,E011,Chicago,Full-Time,NULL
+E004,Priya Sharma,marketing,NULL,2021-03-22,-9999,E011,chicago,Full-Time,4.5
+E005,tom baker,IT,Systems Engineer,2018-00-10,95000,E012,Seattle,Full-Time,3.9
+E006,Linda Cho,IT,Systems Engineer,2018-07-10,95000,E012,Seattle,Full-Time,3.9
+E007,LINDA CHO,it,systems engineer,2018-07-10,95000,E012,seattle,full-time,3.9
+E008,Marcus Webb,HR,HR Coordinator,2022-06-30,51000,E013,Houston,Part-Time,NULL
+E009,NULL,NULL,TBD,NULL,NULL,NULL,NULL,NULL,NULL
+E010,Rachel Okafor,Sales,Sales Manager,2016-11-05,87500,E014,New York,Full-Time,4.7
+E011,NULL,Marketing,Marketing Manager,2017-02-14,82000,E014,Chicago,Full-Time,4.1
+E012,Kevin Tran,IT,IT Director,2015-08-20,115000,E015,Seattle,Full-Time,4.8
+E013,Donna Price,HR,HR Manager,2020-13-01,79000,E014,Houston,Full-Time,4.3
+product_id,product_name,category,subcategory,list_price,cost_price,stock_qty,reorder_level,supplier_id,last_updated
+P001,Wireless Headphones,Electronics,Audio,89.99,42.00,150,30,S01,2023-10-01
+P002,WIRELESS HEADPHONES,ELECTRONICS,AUDIO,89.99,42.00,150,30,S01,2023-10-01
+P003,Running Shoes,Footwear,Athletic,120.00,55.00,80,20,S02,2023-09-15
+P004,Office Chair,Furniture,Seating,345.00,180.00,-5,10,S03,2023-08-30
+P005,Laptop Stand,electronics,Accessories,45.50,18.00,200,50,NULL,2023-11-01
+P006,Yoga Mat,fitness,NULL,55.00,22.00,0,15,S04,9999-01-01
+P007,Desk Lamp,Furniture,Lighting,32.00,12.50,95,25,S03,2023-10

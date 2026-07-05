@@ -1,0 +1,49 @@
+Field,Entry
+Analyst Name,
+Business Request (Original Wording),
+Stakeholder / Requestor,
+Date Initiated,
+Target Database / Schema,
+Refined Analytical Question,
+Primary Table(s) Identified,
+Key Columns / Join Keys,
+Known Benchmark for Validation,
+Final Query Status,
+Version,Date,Description of What Was Added This Step,SQL Layer Type,Tables / Joins Added,Filters / WHERE Clauses Added,Aggregations / GROUP BY Added,Row Count Returned,Expected Row Count (Benchmark),Row Count Match?,Columns in Output,Sample Output Value (Spot Check),Matches Known Benchmark?,Notes / Issues Found,Next Step Planned
+v0.1,2024-03-11,"Base table scan — no filters, no joins",SELECT *,orders,None,None,98432,~100k (stakeholder estimate),✓ Close,All raw columns,order_id: 10001,Yes,Row count aligns with stakeholder's rough estimate; proceed,Add date filter
+v0.2,2024-03-11,Added date range filter for fiscal year 2023,WHERE filter,orders,order_date BETWEEN '2023-01-01' AND '2023-12-31',None,24187,~24k (prior year report),✓ Close,All raw columns,order_date: 2023-06-15,Yes,Matches last year's annual report row count within 1%,Add customer join
+v0.3,2024-03-12,Joined customers table to get customer region,INNER JOIN,"orders, customers",order_date BETWEEN '2023-01-01' AND '2023-12-31',None,24102,24187,⚠ Small drop,"order_id, customer_id, region",region: Northeast,Investigate — 85 orders have no matching customer_id (orphan records),Document orphan records; decide with stakeholder whether to use LEFT JOIN
+v0.4,2024-03-12,Switched to LEFT JOIN to retain all orders; NULL region flagged,LEFT JOIN,"orders, customers",order_date BETWEEN '2023-01-01' AND '2023-12-31',None,24187,24187,✓ Exact,"order_id, customer_id, region",region: NULL (85 rows),Yes,Row count restored; NULL regions flagged for stakeholder review,Add product join
+v0.5,2024-03-13,Joined order_items and products tables to get product category,INNER JOIN (x2),"orders, customers, order_items, products",order_date BETWEEN '2023-01-01' AND '2023-12-31',None,61443,>24k (one-to-many expected),✓ Expected fan-out,"order_id, customer_id, region, category",category: Electronics,Yes — each order has multiple line items,Row multiplication expected; will aggregate next,Add SUM and GROUP BY
+v0.6,2024-03-13,"Added SUM(revenue) and GROUP BY region, category",Aggregation,"orders, customers, order_items, products",order_date BETWEEN '2023-01-01' AND '2023-12-31',"SUM(revenue), GROUP BY region, category",28,28–35 (estimated unique combos),✓ Reasonable,"region, category, total_revenue","Northeast / Electronics: $4,218,340",Cross-check against finance summary pending,Spot-check top revenue row against known finance report,Add ORDER BY and HAVING
+v0.7,2024-03-14,Added HAVING to exclude category-region combos under $10k; ORDER BY total_revenue DESC,Refinement,"orders, customers, order_items, products",order_date BETWEEN '2023-01-01' AND '2023-12-31',"SUM(revenue), GROUP BY region, category, HAVING SUM(revenue) > 10000",24,<28 (some combos expected to drop),✓ As expected,"region, category, total_revenue","Southeast / Office Supplies: $9,820 excluded",Yes — 4 low-volume combos removed,Confirm dropped combos with stakeholder before finalising,Add inline comments; final validation
+v0.8,2024-03-14,"Added SQL block comments documenting join logic, filter rationale, and known data quality issue (NULL regions)",Documentation,No change,No change,No change,24,24,✓ Exact,Same as v0.7,No change,Yes,Query now reproducible by colleagues per Chapter 13 documentation standard,Peer review and stakeholder sign-off
+Step,Chapter 13 Task,Completed?,Notes
+1,Restate the vague business request in your own words,,
+2,Write the refined analytical question in one sentence,,
+3,Identify all tables required to answer the question,,
+4,Identify primary keys and foreign keys for each join,,
+5,Sketch the join path on paper before opening query editor,,
+6,Confirm expected row count direction (fan-out vs. roll-up),,
+7,Write and run the base SELECT with no filters (v0.1),,
+8,Apply date / scope filter and validate row count (v0.2),,
+9,Add joins one at a time and check row count after each,,
+10,Add aggregations and GROUP BY; spot-check totals,,
+11,Cross-check output against a known benchmark value,,
+12,Add SQL block comments explaining logic and data caveats,,
+13,Share with peer for reproducibility check,,
+Benchmark Description,Source,Expected Value,Actual Query Value,Tolerance,Pass / Fail,Version Validated,Notes
+Total orders in fiscal year 2023,Prior year annual report,"24,150","24,187",±2%,Pass,v0.2,0.15% variance; within tolerance
+Total revenue all regions 2023,Finance team summary spreadsheet,"$18,400,000","$18,392,760",±1%,Pass,v0.6,0.04% variance; rounding on returns
+Number of distinct customers with orders,CRM system export,"11,200","11,143",±1%,Pass,v0.4,57 customers in CRM never placed an order in period
+Top region by revenue,CEO quarterly briefing slide,Northeast,Northeast,Exact match,Pass,v0.7,Confirmed correct
+Number of product categories,Product catalogue,8,8,Exact match,Pass,v0.5,All categories represented in order data
+Orders with NULL customer region,Data quality audit log,~80–90,85,±10 rows,Pass,v0.4,Orphan records reported to data engineering team
+Version,Final SQL Text (Paste Full Query Here),Run Date,Run By,Row Count,Runtime (seconds),Approved for Sharing?
+v0.1,SELECT * FROM orders;,2024-03-11,,98432,1.2,No — exploratory only
+v0.2,SELECT * FROM orders WHERE order_date BETWEEN '2023-01-01' AND '2023-12-31';,2024-03-11,,24187,0.8,No — exploratory only
+v0.3,"SELECT o.*, c.region FROM orders o INNER JOIN customers c ON o.customer_id = c.customer_id WHERE o.order_date BETWEEN '2023-01-01' AND '2023-12-31';",2024-03-12,,24102,0.9,No — join issue identified
+v0.4,"SELECT o.*, c.region FROM orders o LEFT JOIN customers c ON o.customer_id = c.customer_id WHERE o.order_date BETWEEN '2023-01-01' AND '2023-12-31';",2024-03-12,,24187,0.9,No — exploratory only
+v0.5,"SELECT o.order_id, c.region, p.category, oi.revenue FROM orders o LEFT JOIN customers c ON o.customer_id = c.customer_id INNER JOIN order_items oi ON o.order_id = oi.order_id INNER JOIN products p ON oi.product_id = p.product_id WHERE o.order_date BETWEEN '2023-01-01' AND '2023-12-31';",2024-03-13,,61443,2.1,No — pre-aggregation
+v0.6,"SELECT c.region, p.category, SUM(oi.revenue) AS total_revenue FROM orders o LEFT JOIN customers c ON o.customer_id = c.customer_id INNER JOIN order_items oi ON o.order_id = oi.order_id INNER JOIN products p ON oi.product_id = p.product_id WHERE o.order_date BETWEEN '2023-01-01' AND '2023-12-31' GROUP BY c.region, p.category;",2024-03-13,,28,2.4,No — pending HAVING clause
+v0.7,`SELECT c
